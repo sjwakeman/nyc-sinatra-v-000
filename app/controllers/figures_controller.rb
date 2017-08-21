@@ -10,7 +10,7 @@ class FiguresController < ApplicationController
   end
 
   get "/figures/:slug" do
-    @figure = Figure.find_by_slug(params["slug"])
+    @figure = Figure.name #igure.find_by_slug(params["slug"])
     erb :"/figures/show"
   end
 end

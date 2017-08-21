@@ -15,22 +15,22 @@ class LandmarksController < ApplicationController
      @landmark.title_ids = params[:titles]
      @landmark.save
      flash[:message] = "Successfully created landmark."
-     redirect("landmarks/#{@landmark.slug}")
+     redirect("landmarks/#{@landmark.name}") #("landmarks/#{@landmark.slug}")
    end
 
    get '/landmarks/:slug' do
-     @landmark = Landmark.find_by_slug(params[:slug]) #["slug"]
+     @landmark = Landmark.name #@landmark = Landmark.find_by_slug(params[:slug])
      erb :'landmarks/show'
    end
 
    get '/landmarks/:slug/edit' do
-     @landmark = Landmarks.find_by_slug(params[:slug])
+     @landmark = Landmarks.find_by_slug(params[:slug]) #@landmark = Landmarks.find_by_slug(params[:slug])
      erb :'landmarks/edit'
    end
 
    patch '/landmarks/:slug' do
 
-     @landmark = Landmarks.find_by_slug(params[:slug])
+     @landmark = Landmarks.find_by_slug(params[:slug]) #@landmark = Landmarks.find_by_slug(params[:slug])
      @landmark.save(params[:landmark])
      @landmark.figure = Figures.find_or_create_by(name: params[:figure][:name])
      @landmark.save
