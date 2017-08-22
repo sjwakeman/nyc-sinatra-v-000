@@ -1,1 +1,4 @@
-Hello
+<% @figures.each do |figure| %>
+  <h2><a href="/figures/<%= figure.name %>">
+  <%= figure.name %></a></h2>
+<% end %>
