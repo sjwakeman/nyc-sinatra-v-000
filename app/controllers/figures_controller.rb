@@ -28,10 +28,4 @@ class FiguresController < ApplicationController
     erb :"/figures/#{@figure.id}"
   end
 
-  get '/figures/:id' do
-
-    @figure = Figure.find(params[:id])
-    erb :'figures/show'
-  end
-
 end
