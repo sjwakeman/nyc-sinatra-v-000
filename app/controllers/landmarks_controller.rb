@@ -13,14 +13,6 @@ class LandmarksController < ApplicationController
      Landmark.find_or_create_by(params["landmark"])
      erb :"/landmarks"
    end
-   #post '/landmarks' do
-     #@landmark = Landmark.create(:name => params["Name"])
-     #@landmark.figure = Figure.find_or_create_by(:name => params["Figure Name"])
-     #@landmark.title_ids = params[:titles]
-     #@landmark.save
-     #flash[:message] = "Successfully created landmark."
-     #redirect("landmarks/#{@landmark.id}") #("landmarks/#{@landmark.slug}")
-   #end
 
    post '/landmarks' do
      @landmark = Landmark.new(params[:landmark])
@@ -37,22 +29,29 @@ class LandmarksController < ApplicationController
    end
 
    get '/landmarks/:id' do
-     @landmark = Landmark(oarams[:id])#@landmark = Landmark.find_by_slug(params[:slug])
-     erb :'landmarks/show'
+     if @landmark = Landmark.find(params[:id]) #:landmark
+       erb :'landmarks/show'
+     else
+       erb :"/landmarks", locals: { message: "I didn't find a matching landmark."}
+     end
    end
 
    get '/landmarks/:id/edit' do
-     @landmark = Landmarks(params[:id]) #@landmark = Landmarks.find_by_slug(params[:slug])
-     erb :'landmarks/edit'
+     if @landmark = Landmark.find(params[:id])
+       #@landmarks = Landmark.all
+       #@year_completed = Year_Completed.all #@year_completed = @landmarks.year_completed
+       erb :'landmarks/edit'
+     else
+       erb :"/landmarks", locals: { message: "I didn't find a matching landmark."}
+     end
    end
 
    patch '/landmarks/:id' do
-
-     @landmark = Landmarks(params[:id]) #@landmark = Landmarks.find_by_slug(params[:slug])
+     @landmark = Landmarks.find(params[:id])
      @landmark.save(params[:landmark])
      @landmark.figure = Figures.find_or_create_by(name: params[:figure][:name])
      @landmark.save
      flash[:message] = "Successfully updated landmark."
-     erb :'landmarks/show'
+     redirect to 'landmarks/show'
    end
  end

@@ -29,8 +29,7 @@ class FiguresController < ApplicationController
   end
 
   get "/figures/:id" do #"/figures/#{@figure.id}"
-    if @figure = Figure.find(params[:id]) #:name
-      #{@figure} == @figure.name
+    if @figure = Figure.find(params[:id])
       erb :"/figures/show"
     else
       erb :"/figures", locals: { message: "I didn't find a matching figure."}
