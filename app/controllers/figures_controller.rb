@@ -25,7 +25,7 @@ class FiguresController < ApplicationController
       @figure.landmarks << @landmark
     end
     @figure.save
-    erb :"/figures/#{@figure.id}"
+    redirect to "/figures/#{@figure.id}"
   end
 
   get "/figures/:id" do #"/figures/#{@figure.id}"
@@ -37,4 +37,23 @@ class FiguresController < ApplicationController
     end
   end
 
+  post "/figures/:id" do
+    @figure = Figure.find(params[:id])
+    @figure.update(params[:figure])
+    @landmark = Landmark.find(:id)
+    @landmark.update(params[:landmark])
+    #@title = Title.find(params[:id])
+    #@title.update(params[:title])
+    redirect to "/figures/#{@figure.id}"
+  end
+
+  get "/figures/:id/edit" do
+    if @figure = Figure.find(params[:id])
+      @landmarks = Landmark.all
+      @titles = Title.all
+      erb :"/figures/edit"
+    else
+      erb :"/figures", locals: { message: "I didn't find a matching figure."}
+    end
+  end
 end

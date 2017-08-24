@@ -9,13 +9,31 @@ class LandmarksController < ApplicationController
      erb :'landmarks/new'
    end
 
+   post "/landmarks/new" do
+     Landmark.find_or_create_by(params["landmark"])
+     erb :"/landmarks"
+   end
+   #post '/landmarks' do
+     #@landmark = Landmark.create(:name => params["Name"])
+     #@landmark.figure = Figure.find_or_create_by(:name => params["Figure Name"])
+     #@landmark.title_ids = params[:titles]
+     #@landmark.save
+     #flash[:message] = "Successfully created landmark."
+     #redirect("landmarks/#{@landmark.id}") #("landmarks/#{@landmark.slug}")
+   #end
+
    post '/landmarks' do
-     @landmark = Landmark.create(:name => params["Name"])
-     @landmark.figure = Figure.find_or_create_by(:name => params["Figure Name"])
-     @landmark.title_ids = params[:titles]
+     @landmark = Landmark.new(params[:landmark])
+     unless params[:landmark][:name].empty?
+       @landmark = Landmark.create(params[:landmark])
+       @landmark.name << @landmark
+     end
+     #unless params[:landmark][:name].empty?
+       #@landmark = Landmark.create(params[:landmark])
+       #@figure.landmarks << @landmark
+     #end
      @landmark.save
-     flash[:message] = "Successfully created landmark."
-     redirect("landmarks/#{@landmark.id}") #("landmarks/#{@landmark.slug}")
+     redirect to "/landmarks/#{@landmark.id}"
    end
 
    get '/landmarks/:id' do
