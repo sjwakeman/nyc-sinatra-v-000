@@ -28,7 +28,7 @@ class FiguresController < ApplicationController
     redirect to "/figures/#{@figure.id}"
   end
 
-  get "/figures/:id" do #"/figures/#{@figure.id}"
+  get "/figures/:id" do
     if @figure = Figure.find(params[:id])
       erb :"/figures/show"
     else
@@ -41,8 +41,6 @@ class FiguresController < ApplicationController
     @figure.update(params[:figure])
     @landmark = Landmark.find(:id)
     @landmark.update(params[:landmark])
-    #@title = Title.find(params[:id])
-    #@title.update(params[:title])
     redirect to "/figures/#{@figure.id}"
   end
 

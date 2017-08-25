@@ -9,7 +9,7 @@
   <% @titles.each do |title| %>
     <input type="checkbox" name="figure[title_ids][]" value="<%= title.id %>" id="title_<%= title.id %>"
     <%= 'checked' if @figure.title_ids.include?(title.id)%>><%= title.name %></input>
-  <% end %></p>
+  <% end %>
   <br><br>
 
   <h3>Or Create a new Title</h3>
